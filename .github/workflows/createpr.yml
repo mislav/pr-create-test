@@ -5,7 +5,7 @@ description: >
   branch, and then tries to mark it as ready.
 
 on:
-  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   createpr:
