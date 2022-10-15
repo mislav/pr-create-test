@@ -1,9 +1,5 @@
 name: Create a PR
 
-description: >
-  Creates a new branch, creates an empty file, opens a draft PR into the main
-  branch, and then tries to mark it as ready.
-
 on:
   workflow_dispatch:
 
