@@ -6,7 +6,7 @@ on:
 jobs:
   createpr:
     name: Create PR and convert from draft to ready
-    runs-on: unbuntu-20.04
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Check out repository
