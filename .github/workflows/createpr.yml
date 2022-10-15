@@ -1,0 +1,38 @@
+name: Create a PR
+
+description: >
+  Creates a new branch, creates an empty file, opens a draft PR into the main
+  branch, and then tries to mark it as ready.
+
+on:
+  repository_dispatch:
+
+jobs:
+  createpr:
+    name: Create PR and convert from draft to ready
+    runs-on: unbuntu-20.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Create new branch with dummy file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git switch -c feature-branch
+          tmpfile=$(mktemp)
+
+          git add "$tmpfile"
+          git commit -m "Add new file"
+          git push -u origin feature-branch
+
+          gh pr create --base main --draft \
+              --title "Draft ready test PR" --body ''
+
+      - name: Mark PR as ready
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_DEBUG: api
+        run: |
+          gh pr ready feature-branch
