@@ -17,7 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           git switch -c feature-branch
-          tmpfile=$(mktemp)
+          tmpfile=$(mktemp -p .)
 
           git add "$tmpfile"
           git commit -m "Add new file"
