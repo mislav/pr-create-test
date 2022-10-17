@@ -3,10 +3,14 @@ name: Create a PR
 on:
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   createpr:
     name: Create PR and convert from draft to ready
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
@@ -16,6 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          [ "$(gh pr list -H feature-branch)" = "" ] || exit 0
           git switch -c feature-branch
           tmpfile=$(mktemp -p .)
 
